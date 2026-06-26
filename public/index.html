@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biomedical Engineering System — AI Service Assistant</title>
+  <meta name="description" content="Offline Biomedical Engineering Knowledge System, Service Journal, and AI Diagnostics Assistant.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- System Shell -->
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+        </div>
+        <div class="brand-text">
+          <h1>BIOMED</h1>
+          <span>SERVICE HUB</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="knowledge">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Knowledge Base</span>
+        </button>
+        <button class="nav-item" data-tab="devices">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span>Equipment</span>
+        </button>
+        <button class="nav-item" data-tab="manuals">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Manuals</span>
+        </button>
+        <button class="nav-item" data-tab="repairs">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          <span>Service Log</span>
+        </button>
+        <button class="nav-item" data-tab="programs">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span>Firmware & Configs</span>
+        </button>
+        <button class="nav-item" data-tab="ai-assistant">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>AI Assistant</span>
+          <span class="badge-pulsing">AI</span>
+        </button>
+        <button class="nav-item" id="nav-item-settings" onclick="showModal('modal-settings')">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>System Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">SE</div>
+          <div class="user-info">
+            <p class="user-name">Senior Engineer</p>
+            <p class="user-role">Administrator</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h2 id="page-title">Dashboard</h2>
+        </div>
+        <div class="header-right">
+          <!-- Language Selector -->
+          <div class="lang-selector">
+            <button class="lang-btn active" data-lang="ru" onclick="changeLanguage('ru')">RU</button>
+            <button class="lang-btn" data-lang="uz" onclick="changeLanguage('uz')">UZ</button>
+            <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')">EN</button>
+          </div>
+          <!-- Connection Indicator -->
+          <div class="status-indicator">
+            <span class="status-dot online"></span>
+            <span class="status-text">Local DB Connected</span>
+          </div>
+          <!-- Quick AI Shortcut -->
+          <button class="btn btn-primary btn-sm" onclick="switchTab('ai-assistant')">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Ask Assistant
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="showModal('modal-settings')" style="padding: 6px 10px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Views (Tabs) -->
+      <div class="view-container">
+
+        <!-- ==================== TAB 1: DASHBOARD ==================== -->
+        <section id="tab-dashboard" class="tab-view active">
+          <!-- Search Header Section -->
+          <div class="search-hero">
+            <h2>Search Technical Database</h2>
+            <p>Instantly search errors, manuals, repairs, devices and firmware files</p>
+            
+            <div class="smart-search-wrapper">
+              <div class="search-input-box">
+                <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="main-search-input" placeholder="Enter error code, symptoms, device model... (e.g., E12 no signal)" autocomplete="off">
+                <button class="clear-search-btn" id="clear-search-btn" style="display: none;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SMART SEARCH RESULTS OVERLAY -->
+          <div id="search-results-overlay" class="search-results-overlay" style="display: none;">
+            <div class="results-header">
+              <h3>Search Results for "<span id="search-term-display"></span>"</h3>
+              <button class="btn btn-secondary btn-xs" id="close-search-btn">Close Results</button>
+            </div>
+            
+            <div class="results-grid">
+              <!-- Errors Section -->
+              <div class="results-col">
+                <div class="results-col-header">
+                  <h4>⚠️ Matching Errors</h4>
+                  <span class="badge" id="count-found-errors">0</span>
+                </div>
+                <div class="results-list" id="results-errors-list"></div>
+              </div>
+
+              <!-- Past Repairs Section -->
+              <div class="results-col">
+                <div class="results-col-header">
+                  <h4>🛠 Repair Logs</h4>
+                  <span class="badge" id="count-found-repairs">0</span>
+                </div>
+                <div class="results-list" id="results-repairs-list"></div>
+              </div>
+
+              <!-- Devices & Hardware Section -->
+              <div class="results-col">
+                <div class="results-col-header">
+                  <h4>🧠 Devices & Inventory</h4>
+                  <span class="badge" id="count-found-devices">0</span>
+                </div>
+                <div class="results-list" id="results-devices-list"></div>
+              </div>
+
+              <!-- Manuals & Programs Section -->
+              <div class="results-col">
+                <div class="results-col-header">
+                  <h4>📘 Docs & Programs</h4>
+                  <span class="badge" id="count-found-docs">0</span>
+                </div>
+                <div class="results-list" id="results-docs-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon cyan">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-value" id="stat-devices-count">0</span>
+                <span class="stat-label">Active Devices</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon red">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-value" id="stat-errors-count">0</span>
+                <span class="stat-label">Known Error Codes</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-value" id="stat-repairs-count">0</span>
+                <span class="stat-label">Repairs Logged</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon purple">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-value" id="stat-programs-count">0</span>
+                <span class="stat-label">Software Profiles</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories & Device Filters -->
+          <div class="categories-section">
+            <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <h3 data-i18n="device_categories">Device Categories</h3>
+              <button class="btn btn-secondary btn-sm" onclick="showModal('modal-add-category')" data-i18n="btn_create_category">+ Create Category</button>
+            </div>
+            <div class="categories-grid" id="categories-list-container">
+              <!-- Rendered Dynamically -->
+            </div>
+          </div>
+
+          <!-- Dashboard Row: Recent Errors & Favorite Equipment -->
+          <div class="dashboard-row">
+            <!-- Recent Errors -->
+            <div class="dashboard-panel panel-left">
+              <div class="panel-header">
+                <h3>⚡ Recent Error Codes & Solutions</h3>
+                <button class="btn btn-link btn-xs" onclick="switchTab('knowledge')">View All</button>
+              </div>
+              <div class="panel-content scrollable" id="recent-errors-list">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+
+            <!-- AI Quick Ask -->
+            <div class="dashboard-panel panel-right">
+              <div class="panel-header">
+                <h3>🤖 Offline AI Diagnostics Assistant</h3>
+              </div>
+              <div class="panel-content ai-quick-panel">
+                <div class="ai-speech-bubble">
+                  <p>Describe your device's malfunction or error code, and I will search our service records to formulate a step-by-step diagnostic roadmap.</p>
+                </div>
+                <div class="quick-ask-input">
+                  <input type="text" id="quick-ai-input" placeholder="Type symptoms (e.g. lamp energy low)...">
+                  <button class="btn btn-accent btn-icon" id="quick-ai-submit">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+                </div>
+                <div class="quick-tags">
+                  <span onclick="fillQuickAI('Volumat Err 102 air in line')">Air Sensor Calibration</span>
+                  <span onclick="fillQuickAI('Voluson ultrasound E12 probe')">Probe Connection Loss</span>
+                  <span onclick="fillQuickAI('X-ray tube overheat warning')">Tube Overheat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 2: KNOWLEDGE BASE ==================== -->
+        <section id="tab-knowledge" class="tab-view">
+          <div class="section-actions">
+            <div class="search-filters">
+              <input type="text" class="form-input search-filter-input" id="err-search-filter" placeholder="Filter errors by code or model...">
+            </div>
+            <button class="btn btn-primary" onclick="showModal('modal-add-error')">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Add Error Entry
+            </button>
+          </div>
+
+          <div class="error-dictionary" id="error-dictionary-container">
+            <!-- Rendered via Javascript -->
+          </div>
+        </section>
+
+        <!-- ==================== TAB 3: DEVICES ==================== -->
+        <section id="tab-devices" class="tab-view">
+          <div class="section-actions">
+            <div class="search-filters">
+              <input type="text" class="form-input search-filter-input" id="device-search-filter" placeholder="Search inventory by name, model, serial...">
+            </div>
+            <button class="btn btn-primary" onclick="showModal('modal-add-device')">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Add New Equipment
+            </button>
+          </div>
+
+          <!-- Device Card Grid -->
+          <div class="devices-grid" id="devices-list-container">
+            <!-- Rendered via Javascript -->
+          </div>
+
+          <!-- DEVICE DETAILS DRAWER / MODAL -->
+          <div id="device-detail-panel" class="details-panel" style="display: none;">
+            <div class="panel-back-overlay" onclick="closeDeviceDetails()"></div>
+            <div class="panel-inner">
+              <div class="panel-details-header">
+                <div>
+                  <h3 id="dev-detail-name">Device Name</h3>
+                  <p id="dev-detail-meta">Manufacturer | Model</p>
+                </div>
+                <button class="close-panel-btn" onclick="closeDeviceDetails()">
+                  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+
+              <div class="panel-content-layout">
+                <div class="details-main-column">
+                  <div class="details-section">
+                    <h4>Device Description</h4>
+                    <p id="dev-detail-desc" class="desc-text">Description details go here...</p>
+                  </div>
+
+                  <div class="details-section">
+                    <h4>🛠 Service & Repair History</h4>
+                    <div class="timeline" id="dev-detail-repairs-timeline">
+                      <!-- Rendered Dynamically -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="details-side-column">
+                  <div class="details-box">
+                    <h4>Technical Information</h4>
+                    <div class="info-row"><span>Category</span><strong id="dev-detail-category">N/A</strong></div>
+                    <div class="info-row"><span>Serial Number</span><strong id="dev-detail-serial">N/A</strong></div>
+                    <div class="info-row"><span>Status</span><strong class="text-success">Calibrated & Active</strong></div>
+                  </div>
+
+                  <div class="details-box">
+                    <h4>⚙ Installed Configurations & Firmware</h4>
+                    <div class="dev-programs-list" id="dev-detail-programs">
+                      <!-- Rendered Dynamically -->
+                    </div>
+                  </div>
+                  
+                  <div class="details-panel-actions">
+                    <button class="btn btn-secondary btn-block" id="btn-edit-device-action">Edit Device Details</button>
+                    <button class="btn btn-danger btn-block" id="btn-delete-device-action">Decommission / Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== TAB 4: MANUALS ==================== -->
+        <section id="tab-manuals" class="tab-view">
+          <div class="section-actions">
+            <div class="search-filters">
+              <input type="text" class="form-input search-filter-input" id="manuals-search-filter" placeholder="Search manuals by model or title...">
+            </div>
+            <button class="btn btn-primary" onclick="showModal('modal-add-manual')">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Upload Service Manual
+            </button>
+          </div>
+
+          <div class="manuals-grid" id="manuals-list-container">
+            <!-- Rendered via Javascript -->
+          </div>
+        </section>
+
+        <!-- ==================== TAB 5: SERVICE LOG (REPAIRS) ==================== -->
+        <section id="tab-repairs" class="tab-view">
+          <div class="section-actions">
+            <div class="search-filters">
+              <input type="text" class="form-input search-filter-input" id="repairs-search-filter" placeholder="Search logs by problem, cause, solution...">
+            </div>
+            <button class="btn btn-primary" onclick="showModal('modal-add-repair')">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Log New Repair Case
+            </button>
+          </div>
+
+          <div class="repair-history-timeline" id="repairs-list-container">
+            <!-- Rendered via Javascript -->
+          </div>
+        </section>
+
+        <!-- ==================== TAB 6: FIRMWARE & CONFIGS ==================== -->
+        <section id="tab-programs" class="tab-view">
+          <div class="section-actions">
+            <div class="search-filters">
+              <input type="text" class="form-input search-filter-input" id="programs-search-filter" placeholder="Search firmware or config profiles...">
+            </div>
+            <button class="btn btn-primary" onclick="showModal('modal-add-program')">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Upload Program/Config
+            </button>
+          </div>
+
+          <div class="programs-grid" id="programs-list-container">
+            <!-- Rendered via Javascript -->
+          </div>
+        </section>
+
+        <!-- ==================== TAB 7: AI DIAGNOSTICS ASSISTANT ==================== -->
+        <section id="tab-ai-assistant" class="tab-view">
+          <div class="ai-assistant-layout">
+            
+            <!-- Chat Window -->
+            <div class="chat-window">
+              <div class="chat-header">
+                <div class="assistant-branding">
+                  <div class="ai-avatar pulsing-border">AI</div>
+                  <div>
+                    <h3>Gemini Service Co-Engineer</h3>
+                    <p class="subtitle">Specialized Technical Reasoning Model</p>
+                  </div>
+                </div>
+
+                <!-- Context Switcher -->
+                <div class="chat-controls">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="ai-context-toggle" checked>
+                    <span class="slider"></span>
+                  </label>
+                  <span class="toggle-label">Database Context (RAG)</span>
+                </div>
+              </div>
+
+              <!-- Chat Messages Panel -->
+              <div class="chat-messages" id="chat-messages-panel">
+                <div class="message system-msg">
+                  <div class="message-sender">🤖 SERVICE CO-ENGINEER</div>
+                  <div class="message-content">
+                    <p>Greetings. I am your biomedical engineering service assistant, loaded with 15 years of technical troubleshooting expertise across laboratory analyzers, imaging systems, infusion pumps, and clinical ventilators.</p>
+                    <p>I am connected directly to your **offline SQLite database**. If "Database Context (RAG)" is enabled, I will crawl your manual registers, fault libraries, and repair logs to answer your query using your own repository's exact specifications.</p>
+                    <p>How can I assist you in servicing today?</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chat Suggestions -->
+              <div class="chat-suggestions">
+                <button class="suggest-chip" onclick="sendSuggestedMessage('How do I calibrate the air in line sensor for Volumat MC Agilia pump?')">Calibrate Air Sensor (Volumat)</button>
+                <button class="suggest-chip" onclick="sendSuggestedMessage('What causes low lamp energy on Mindray BS-200 analyzer?')">Low Lamp Energy (Mindray)</button>
+                <button class="suggest-chip" onclick="sendSuggestedMessage('Our Philips DuraDiagnostic reports Err 20 - tube overheat')">X-Ray Tube Overheat (Philips)</button>
+              </div>
+
+              <!-- Chat Input Box -->
+              <div class="chat-input-wrapper">
+                <textarea id="ai-chat-textarea" placeholder="Describe the device error, model, and symptoms..." rows="1"></textarea>
+                <button class="btn btn-accent btn-icon" id="ai-chat-send-btn">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Context Inspector (Crawler Panel) -->
+            <div class="context-inspector">
+              <div class="inspector-header">
+                <h4>🔍 Local Context Crawler</h4>
+                <span class="context-badge" id="crawler-status-badge">Idle</span>
+              </div>
+              <div class="inspector-content scrollable" id="inspector-content-panel">
+                <div class="empty-inspector-state">
+                  <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  <p>When you ask a question, the system crawls your SQLite database. The relevant documents harvested to ground the AI response will appear here in real-time.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== MODALS & POPUPS ==================== -->
+  
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modal-overlay" onclick="hideActiveModal()"></div>
+
+  <!-- 1. Modal: Add Device -->
+  <div class="modal-card" id="modal-add-device">
+    <div class="modal-header">
+      <h3>Add New Equipment Card</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-device" onsubmit="handleDeviceSubmit(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Equipment Name *</label>
+          <input type="text" name="name" class="form-input" placeholder="e.g. Mindray BS-200 Analyzer" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Model *</label>
+            <input type="text" name="model" class="form-input" placeholder="e.g. BS-200" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Manufacturer *</label>
+            <input type="text" name="manufacturer" class="form-input" placeholder="e.g. Mindray" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select name="category" class="form-input" required>
+              <option value="">Select Category</option>
+              <option value="Infusion Pump">Infusion Pump</option>
+              <option value="Ultrasound">Ultrasound</option>
+              <option value="Laboratory Analyzer">Laboratory Analyzer</option>
+              <option value="X-Ray">X-Ray</option>
+              <option value="Ventilator">Ventilator</option>
+              <option value="Other">Other / Miscellaneous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Serial Number</label>
+            <input type="text" name="serial_number" class="form-input" placeholder="e.g. SN-94821">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Device Description</label>
+          <textarea name="description" class="form-input" rows="3" placeholder="Provide general notes, location, or department usage..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Device</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 2. Modal: Add Error -->
+  <div class="modal-card" id="modal-add-error">
+    <div class="modal-header">
+      <h3>Add Error Reference Card</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-error" onsubmit="handleErrorSubmit(event)">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Applicable Device Model *</label>
+            <input type="text" name="device_model" class="form-input" placeholder="e.g. Volumat MC" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Error Code *</label>
+            <input type="text" name="error_code" class="form-input" placeholder="e.g. Err 102 or E12" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Error Title/Short Name *</label>
+          <input type="text" name="title" class="form-input" placeholder="e.g. Air in Line Sensor Calibration Failure" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Severity Level</label>
+            <select name="severity" class="form-input">
+              <option value="low">Low (Notice)</option>
+              <option value="medium" selected>Medium (Action needed)</option>
+              <option value="high">High (Malfunction)</option>
+              <option value="critical">Critical (Shutdown/Risky)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <input type="text" name="category" class="form-input" placeholder="e.g. Calibration, Power, Optical">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Full Malfunction Description</label>
+          <textarea name="description" class="form-input" rows="2" placeholder="Symptoms reported, physical indicators..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Probable Root Cause(s)</label>
+          <textarea name="cause" class="form-input" rows="2" placeholder="What hardware failures, wear, or software parameters cause this..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Recommended Resolution / Solution Steps</label>
+          <textarea name="solution" class="form-input" rows="3" placeholder="Step-by-step diagnostic and calibration guidelines..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Error Reference</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 3. Modal: Log Repair -->
+  <div class="modal-card" id="modal-add-repair">
+    <div class="modal-header">
+      <h3>Log Service/Repair Operation</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-repair" onsubmit="handleRepairSubmit(event)">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Select Equipment *</label>
+            <select name="device_id" id="form-repair-device-select" class="form-input" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Triggering Error Code</label>
+            <input type="text" name="error_code" class="form-input" placeholder="e.g. E12 (Leave blank if preventive)">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Problem Reported *</label>
+          <textarea name="problem" class="form-input" rows="2" placeholder="Describe the physical state, alarms or failure..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Identified Cause</label>
+          <textarea name="cause" class="form-input" rows="2" placeholder="What did you discover during disassembly or diagnostic test?"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Applied Action & Solution</label>
+          <textarea name="solution" class="form-input" rows="2" placeholder="What actions were taken? (e.g., replaced sensor, calibrated, lubricated)"></textarea>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Repair Result Status *</label>
+            <select name="result" class="form-input" required>
+              <option value="solved" selected>Solved & Passed</option>
+              <option value="in_progress">In Progress</option>
+              <option value="pending_parts">Pending Spare Parts</option>
+              <option value="unresolved">Unresolved</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Date</label>
+            <input type="datetime-local" id="form-repair-date" name="date" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Log Entry</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 4. Modal: Upload Manual -->
+  <div class="modal-card" id="modal-add-manual">
+    <div class="modal-header">
+      <h3>Upload Equipment Service Manual</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-manual" onsubmit="handleManualSubmit(event)" enctype="multipart/form-data">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Applicable Device Model *</label>
+            <input type="text" name="device_model" class="form-input" placeholder="e.g. Volumat MC" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Document Title *</label>
+            <input type="text" name="title" class="form-input" placeholder="e.g. Technical Manual & Schematics" required>
+          </div>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Document Type</label>
+            <select name="type" class="form-input">
+              <option value="PDF">PDF Manual</option>
+              <option value="Schematic">Wiring / Fluidic Schematic</option>
+              <option value="Calibration">Calibration Guide</option>
+              <option value="Service Note">Service Bulletin / Manufacturer Note</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Manual Document File (PDF/Image) *</label>
+            <input type="file" name="file" class="form-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Additional Documentation Notes</label>
+          <textarea name="notes" class="form-input" rows="2" placeholder="e.g. Pages 45-50 cover the power supply schematics."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Upload Document</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 5. Modal: Upload Program -->
+  <div class="modal-card" id="modal-add-program">
+    <div class="modal-header">
+      <h3>Store Firmware or Parameter Profile</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-program" onsubmit="handleProgramSubmit(event)" enctype="multipart/form-data">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Target Equipment *</label>
+            <select name="device_id" id="form-program-device-select" class="form-input" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Program/Config Name *</label>
+            <input type="text" name="name" class="form-input" placeholder="e.g. Main Controller Firmware" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Version *</label>
+            <input type="text" name="version" class="form-input" placeholder="e.g. v3.5.2 or Q2_Cal_Profile" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Software Binary / Settings File</label>
+            <input type="file" name="file" class="form-input" accept=".bin,.hex,.json,.txt,.cfg,.xml">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Operational Parameters (JSON Format preferred)</label>
+          <textarea name="parameters" id="form-program-params" class="form-input monospace-input" rows="3" placeholder='{"baud_rate": 19200, "sensor_offset": 12}'></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Installation & Flashing Instructions</label>
+          <textarea name="notes" class="form-input" rows="2" placeholder="e.g. Use ISP programmer set to 3.3V. Calibration must follow flashing..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Configuration</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 6. Modal: System Settings -->
+  <div class="modal-card" id="modal-settings">
+    <div class="modal-header">
+      <h3>System Configuration & Settings</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Gemini API Key</label>
+        <input type="password" id="settings-api-key" class="form-input" placeholder="AI-assisted troubleshooting requires a valid Gemini API Key...">
+        <p class="text-darker" style="font-size:0.75rem; margin-top:4px;">This key is saved locally. If running in Standalone Browser mode, it will query the Gemini API directly. If running via Node.js server, it will use the API key in the server's .env file (or fallback to this key if configured).</p>
+      </div>
+
+      <div style="border-top:1px solid var(--card-border); margin:20px 0; padding-top:16px;">
+        <h4 style="font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Database Utilities</h4>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+          <button class="btn btn-secondary btn-sm" onclick="exportBrowserDatabase()">
+            📥 Export Database (JSON)
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="triggerDatabaseImport()">
+            📤 Import Database (JSON)
+          </button>
+        </div>
+        <input type="file" id="import-db-file-input" style="display:none;" accept=".json" onchange="importBrowserDatabase(event)">
+      </div>
+
+      <div style="border-top:1px solid var(--card-border); margin-top:20px; padding-top:16px;">
+        <h4 style="font-size:0.8rem; text-transform:uppercase; color:var(--status-danger); margin-bottom:12px;">Emergency Actions</h4>
+        <button class="btn btn-danger btn-sm btn-block" onclick="resetDatabaseToSeed()">
+          🚨 Reset to Factory Seed Data
+        </button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="saveSystemSettings()">Save Settings</button>
+    </div>
+  </div>
+
+  <!-- 7. Modal: Add Category -->
+  <div class="modal-card" id="modal-add-category">
+    <div class="modal-header">
+      <h3 data-i18n="modal_create_category_title">Create New Device Category</h3>
+      <button class="close-modal-btn" onclick="hideActiveModal()">&times;</button>
+    </div>
+    <form id="form-add-category" onsubmit="handleCategorySubmit(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" data-i18n="lbl_category_name">Category Name *</label>
+          <input type="text" name="name" class="form-input" placeholder="e.g. Ventilator" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="lbl_category_icon">Category Icon (Emoji) *</label>
+          <input type="text" name="icon" class="form-input" placeholder="e.g. 🌬️" style="font-size: 1.25rem;" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="lbl_category_desc">Description</label>
+          <textarea name="description" class="form-input" rows="3" placeholder="Describe the equipment group..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideActiveModal()" data-i18n="btn_cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary" data-i18n="btn_save">Save Category</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Main Javascript -->
+  <script src="js/app.js"></script>
+</body>
+</html>

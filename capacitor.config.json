@@ -1,0 +1,6 @@
+{
+  "appId": "com.medtech.engineering",
+  "appName": "MedTech",
+  "webDir": "public",
+  "bundledWebRuntime": false
+}
